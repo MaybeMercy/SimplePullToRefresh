@@ -1,29 +1,13 @@
 package com.main.maybe.simplepulltorefresh;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private float mLastMotionX, mLastMotionY; //  记录手指触摸的位置x,y坐标
-    private float mDeltax, mDeltay; // 记录当前手指拉动的x和y偏移量
-    // 当前处于什么状态
-    private enum State{
-        REFRESHING, // 正在刷新
-        PULLING_HORIZONTAL, // 水平拉动
-        PULLING_VERTICAL, // 垂直拉动
-        NORMAL // 正常状态
-    };
-    // 记录拉动的方向
-    private enum Orientation{
-        HORIZONTAL, // 水平
-        VERTICAL // 垂直
-    }
-    private State mState; // 当前状态
-    private Orientation mOrientation; // 当前拉动方向
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,4 +37,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
