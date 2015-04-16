@@ -84,7 +84,7 @@ public class MyFrameLayout extends FrameLayout{
                         mDeltay -= absInnerDeltay;
                         pull(mDeltay);
                     }else if(innerDeltay < -1.0f){
-                        mDeltay -= absInnerDeltay;
+                        mDeltay += absInnerDeltay;
                         pull(mDeltay);
                     }
                 }
@@ -120,9 +120,11 @@ public class MyFrameLayout extends FrameLayout{
     private void smoothScrollTo(float diff){
         int value = Math.round(diff / 2.0f);
         mScrollToHomeRunnable = new ScrollToHomeRunnable(value, 0);
+        mState = State.REFRESHING;
+        post(mScrollToHomeRunnable);
     }
 
-    public class ScrollToHomeRunnable implements Runnable{
+    final class ScrollToHomeRunnable implements Runnable{
 
         private final Interpolator mInterpolator;
         private int target;
@@ -140,7 +142,7 @@ public class MyFrameLayout extends FrameLayout{
             if (mStartTime == -1){
                 mStartTime = System.currentTimeMillis();
             }else{
-                long normalizedTime = (1000 * (System.currentTimeMillis() - mStartTime));
+                long normalizedTime = (1000 * (System.currentTimeMillis() - mStartTime))/200;
                 normalizedTime = Math.max(Math.min(normalizedTime, 1000), 0);
                 final int delta = Math.round((current - target) * mInterpolator.getInterpolation(normalizedTime / 1000f));
 
